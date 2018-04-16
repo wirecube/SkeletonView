@@ -80,6 +80,7 @@ struct SkeletonLayer {
             fadeAnimation.toValue = 0
             fadeAnimation.duration = 0.3
             fadeAnimation.delegate = SkeletonLayerAnimationDelegate(layer: self)
+            maskLayer.opacity = 0
             maskLayer.add(fadeAnimation, forKey: "fadeOut")
         }
     }
