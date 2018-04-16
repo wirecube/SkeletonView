@@ -15,8 +15,8 @@ private enum AssociatedKeys {
 
 protocol ContainsMultilineText {
     var numLines: Int { get }
-    var lastLineFillingPercent: Int { get }
-    var forceShortenLastLine: Bool { get }
+    var lastLineSkeletonFillPercent: Int { get }
+    var forceShortenLastSkeletonLine: Bool { get }
 }
 
 extension ContainsMultilineText {
@@ -26,13 +26,13 @@ extension ContainsMultilineText {
 public extension UILabel {
     
     @IBInspectable
-    var lastLineFillPercent: Int {
+    var lastLineSkeletonFillPercent: Int {
         get { return lastLineFillingPercent }
         set { lastLineFillingPercent = min(newValue, 100) }
     }
     
     @IBInspectable
-    var forceShortenLastLine: Bool {
+    var forceShortenLastSkeletonLine: Bool {
         get { return forceShorten }
         set { forceShorten = newValue }
     }
@@ -41,13 +41,13 @@ public extension UILabel {
 public extension UITextView {
     
     @IBInspectable
-    var lastLineFillPercent: Int {
+    var lastLineSkeletonFillPercent: Int {
         get { return lastLineFillingPercent }
         set { lastLineFillingPercent = min(newValue, 100) }
     }
 
     @IBInspectable
-    var forceShortenLastLine: Bool {
+    var forceShortenLastSkeletonLine: Bool {
         get { return forceShorten }
         set { forceShorten = newValue }
     }

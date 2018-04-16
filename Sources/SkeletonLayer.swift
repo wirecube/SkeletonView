@@ -88,7 +88,7 @@ struct SkeletonLayer {
     
     func addMultilinesIfNeeded() {
         guard let multiLineView = holder as? ContainsMultilineText else { return }
-        maskLayer.skltn_addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineFillingPercent, cornerRadius: self.holder?.skeletonCornerRadius ?? 0, forceShortenLines: multiLineView.forceShortenLastLine)
+        maskLayer.skltn_addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineSkeletonFillPercent, cornerRadius: self.holder?.skeletonCornerRadius ?? 0, forceShortenLines: multiLineView.forceShortenLastSkeletonLine)
     }
 }
 
