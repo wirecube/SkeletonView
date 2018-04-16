@@ -49,7 +49,7 @@ public enum SkeletonType {
     }
 }
 
-public struct SkeletonLayer {
+struct SkeletonLayer {
     
     private var maskLayer: CALayer
     private weak var holder: UIView?
@@ -88,7 +88,7 @@ public struct SkeletonLayer {
     
     func addMultilinesIfNeeded() {
         guard let multiLineView = holder as? ContainsMultilineText else { return }
-        maskLayer.skltn_addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineFillingPercent)
+        maskLayer.skltn_addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineFillingPercent, cornerRadius: self.holder?.skeletonCornerRadius ?? 0)
     }
 }
 

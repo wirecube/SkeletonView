@@ -36,7 +36,7 @@ extension CALayer {
         return sublayers?.filter { $0.name == CALayer.skeletonSubLayersName } ?? [CALayer]()
     }
     
-    func skltn_addMultilinesLayers(lines: Int, type: SkeletonType, lastLineFillPercent: Int) {
+    func skltn_addMultilinesLayers(lines: Int, type: SkeletonType, lastLineFillPercent: Int, cornerRadius: CGFloat) {
         let numberOfSublayers = calculateNumLines(maxLines: lines)
         for index in 0..<numberOfSublayers {
             var width = bounds.width
@@ -46,6 +46,7 @@ extension CALayer {
             }
             
             let layer = SkeletonLayerFactory().makeMultilineLayer(withType: type, for: index, width: width)
+            layer.cornerRadius = cornerRadius
             addSublayer(layer)
         }
     }
