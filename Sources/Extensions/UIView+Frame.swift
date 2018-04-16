@@ -11,20 +11,20 @@ import UIKit
 // MARK: Frame
 extension UIView {
     
-    var maxBoundsEstimated: CGRect {
-        return CGRect(origin: .zero, size: maxSizeEstimated)
+    var skltn_maxBoundsEstimated: CGRect {
+        return CGRect(origin: .zero, size: skltn_maxSizeEstimated)
     }
     
-    var maxSizeEstimated: CGSize {
-        return CGSize(width: maxWidthEstimated, height: maxHeightEstimated)
+    var skltn_maxSizeEstimated: CGSize {
+        return CGSize(width: skltn_maxWidthEstimated, height: skltn_maxHeightEstimated)
     }
     
-    var maxWidthEstimated: CGFloat {
+    var skltn_maxWidthEstimated: CGFloat {
         let constraintsWidth = constraints.filter({ $0.firstAttribute == NSLayoutAttribute.width })
         return max(between: frame.size.width, andContantsOf: constraintsWidth)
     }
     
-    var maxHeightEstimated: CGFloat {
+    var skltn_maxHeightEstimated: CGFloat {
         let constraintsHeight = constraints.filter({ $0.firstAttribute == NSLayoutAttribute.height })
         return max(between: frame.size.height, andContantsOf: constraintsHeight)
     }

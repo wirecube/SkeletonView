@@ -21,6 +21,6 @@ class SkeletonFlowHandler: SkeletonFlowDelegate {
     
     func willBeginHidingSkeletons(withRootView rootView: UIView) {
         rootView.removeAppNoticationsObserver()
-        rootView.flowDelegate = nil
+        rootView.skeletonFlowDelegate = nil
     }
 }

@@ -20,7 +20,7 @@ public struct SkeletonGradient {
         if let secondary = secondaryColor {
             self.gradientColors = [baseColor, secondary, baseColor]
         } else {
-            self.gradientColors = baseColor.makeGradient()
+            self.gradientColors = baseColor.skltn_makeGradient()
         }
     }
 }

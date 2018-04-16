@@ -42,9 +42,9 @@ public enum SkeletonType {
     var layerAnimation: SkeletonLayerAnimation {
         switch self {
         case .solid:
-            return { $0.pulse }
+            return { $0.skltn_pulse }
         case .gradient:
-            return { $0.sliding }
+            return { $0.skltn_sliding }
         }
     }
 }
@@ -66,9 +66,9 @@ struct SkeletonLayer {
         self.holder = holder
         self.maskLayer = type.layer
         self.maskLayer.anchorPoint = .zero
-        self.maskLayer.bounds = holder.maxBoundsEstimated
+        self.maskLayer.bounds = holder.skltn_maxBoundsEstimated
         addMultilinesIfNeeded()
-        self.maskLayer.tint(withColors: colors)
+        self.maskLayer.skltn_tint(withColors: colors)
     }
     
     func removeLayer() {
@@ -77,7 +77,7 @@ struct SkeletonLayer {
     
     func addMultilinesIfNeeded() {
         guard let multiLineView = holder as? ContainsMultilineText else { return }
-        maskLayer.addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineFillingPercent)
+        maskLayer.skltn_addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineFillingPercent)
     }
 }
 
@@ -85,10 +85,10 @@ extension SkeletonLayer {
 
     func start(_ anim: SkeletonLayerAnimation? = nil) {
         let animation = anim ?? type.layerAnimation
-        contentLayer.playAnimation(animation, key: "skeletonAnimation")
+        contentLayer.skltn_playAnimation(animation, "skeletonAnimation")
     }
     
     func stopAnimation() {
-        contentLayer.stopAnimation(forKey: "skeletonAnimation")
+        contentLayer.skltn_stopAnimation(forKey: "skeletonAnimation")
     }
 }

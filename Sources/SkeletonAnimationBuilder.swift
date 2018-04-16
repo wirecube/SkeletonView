@@ -10,7 +10,7 @@ import UIKit
 
 typealias GradientAnimationPoint = (from: CGPoint, to: CGPoint)
 
-public enum GradientDirection {
+public enum SkeletonGradientDirection {
     case leftRight
     case rightLeft
     case topBottom
@@ -62,7 +62,7 @@ public class SkeletonAnimationBuilder {
     public init() {
     }
     
-    public func makeSlidingAnimation(withDirection direction: GradientDirection, duration: CFTimeInterval = 1.5) -> SkeletonLayerAnimation {
+    public func makeSlidingAnimation(withDirection direction: SkeletonGradientDirection, duration: CFTimeInterval = 1.5) -> SkeletonLayerAnimation {
         return { layer in
             
             let startPointAnim = CABasicAnimation(keyPath: #keyPath(CAGradientLayer.startPoint))

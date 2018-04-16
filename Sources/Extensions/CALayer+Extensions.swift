@@ -9,19 +9,19 @@
 import UIKit
 
 extension CALayer {
-    @objc func tint(withColors colors: [UIColor]) {
+    @objc func skltn_tint(withColors colors: [UIColor]) {
         recursiveSearch(inArray: skeletonSublayers,
                         leafBlock: { backgroundColor = colors.first?.cgColor }) {
-                            $0.tint(withColors: colors)
+                            $0.skltn_tint(withColors: colors)
         }
     }
 }
 
 extension CAGradientLayer {
-    override func tint(withColors colors: [UIColor]) {
+    override func skltn_tint(withColors colors: [UIColor]) {
         recursiveSearch(inArray: skeletonSublayers,
                         leafBlock: { self.colors = colors.map { $0.cgColor } }) {
-                            $0.tint(withColors: colors)
+                            $0.skltn_tint(withColors: colors)
         }
     }
 }
@@ -36,7 +36,7 @@ extension CALayer {
         return sublayers?.filter { $0.name == CALayer.skeletonSubLayersName } ?? [CALayer]()
     }
     
-    func addMultilinesLayers(lines: Int, type: SkeletonType, lastLineFillPercent: Int) {
+    func skltn_addMultilinesLayers(lines: Int, type: SkeletonType, lastLineFillPercent: Int) {
         let numberOfSublayers = calculateNumLines(maxLines: lines)
         for index in 0..<numberOfSublayers {
             var width = bounds.width
@@ -61,10 +61,10 @@ extension CALayer {
 // MARK: Animations
 public extension CALayer {
 
-    var pulse: CAAnimation {
+    var skltn_pulse: CAAnimation {
         let pulseAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.backgroundColor))
         pulseAnimation.fromValue = backgroundColor
-        pulseAnimation.toValue = UIColor(cgColor: backgroundColor!).complementaryColor.cgColor
+        pulseAnimation.toValue = UIColor(cgColor: backgroundColor!).skltn_complementaryColor.cgColor
         pulseAnimation.duration = 1
         pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         pulseAnimation.autoreverses = true
@@ -72,7 +72,7 @@ public extension CALayer {
         return pulseAnimation
     }
     
-    var sliding: CAAnimation {
+    var skltn_sliding: CAAnimation {
         let startPointAnim = CABasicAnimation(keyPath: #keyPath(CAGradientLayer.startPoint))
         startPointAnim.fromValue = CGPoint(x: -1, y: 0.5)
         startPointAnim.toValue = CGPoint(x:1, y: 0.5)
@@ -90,17 +90,17 @@ public extension CALayer {
         return animGroup
     }
     
-    func playAnimation(_ anim: SkeletonLayerAnimation, key: String) {
+    func skltn_playAnimation(_ anim: SkeletonLayerAnimation, _ key: String) {
         recursiveSearch(inArray: skeletonSublayers,
                         leafBlock: { add(anim(self), forKey: key) }) {
-                            $0.playAnimation(anim, key: key)
+                            $0.skltn_playAnimation(anim, key)
         }
     }
     
-    func stopAnimation(forKey key: String) {
+    func skltn_stopAnimation(forKey key: String) {
         recursiveSearch(inArray: skeletonSublayers,
                         leafBlock: { removeAnimation(forKey: key) }) {
-                            $0.stopAnimation(forKey: key)
+                            $0.skltn_stopAnimation(forKey: key)
         }
     }
 }

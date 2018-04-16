@@ -27,7 +27,7 @@ public extension UIView {
     }
     
     func hideSkeleton(reloadDataAfter reload: Bool = true) {
-        flowDelegate?.willBeginHidingSkeletons(withRootView: self)
+        skeletonFlowDelegate?.willBeginHidingSkeletons(withRootView: self)
         recursiveHideSkeleton(reloadDataAfter: reload)
     }
     
@@ -52,8 +52,8 @@ extension UIView {
     
     func showSkeleton(withType type: SkeletonType = .solid, usingColors colors: [UIColor], animated: Bool = false, animation: SkeletonLayerAnimation? = nil) {
         skeletonIsAnimated = animated
-        flowDelegate = SkeletonFlowHandler()
-        flowDelegate?.willBeginShowingSkeletons(withRootView: self)
+        skeletonFlowDelegate = SkeletonFlowHandler()
+        skeletonFlowDelegate?.willBeginShowingSkeletons(withRootView: self)
         recursiveShowSkeleton(withType: type, usingColors: colors, animated: animated, animation: animation)
     }
     
@@ -134,11 +134,11 @@ extension UIStackView {
 
 extension UIView {
     
-    func addSkeletonLayer(withType type: SkeletonType, usingColors colors: [UIColor], gradientDirection direction: GradientDirection? = nil, animated: Bool, animation: SkeletonLayerAnimation? = nil) {
+    func addSkeletonLayer(withType type: SkeletonType, usingColors colors: [UIColor], gradientDirection direction: SkeletonGradientDirection? = nil, animated: Bool, animation: SkeletonLayerAnimation? = nil) {
         self.skeletonLayer = SkeletonLayerFactory().makeSkeletonLayer(withType: type, usingColors: colors, andHolder: self)
         layer.insertSublayer(skeletonLayer!.contentLayer, at: UInt32.max)
         if animated { skeletonLayer!.start(animation) }
-        status = .on
+        skeletonStatus = .on
     }
     
     func removeSkeletonLayer() {
@@ -147,7 +147,7 @@ extension UIView {
         layer.stopAnimation()
         layer.removeLayer()
         skeletonLayer = nil
-        status = .off
+        skeletonStatus = .off
     }
 }
 

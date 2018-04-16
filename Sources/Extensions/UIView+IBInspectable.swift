@@ -25,18 +25,18 @@ public extension UIView {
     }
     
     var isSkeletonActive: Bool {
-        return status == .on || (subviewsSkeletonables.first(where: { $0.isSkeletonActive }) != nil)
+        return skeletonStatus == .on || (subviewsSkeletonables.first(where: { $0.isSkeletonActive }) != nil)
     }
 }
 
 extension UIView {
     
-    enum Status {
+    enum SkeletonStatus {
         case on
         case off
     }
     
-    var flowDelegate: SkeletonFlowDelegate? {
+    var skeletonFlowDelegate: SkeletonFlowDelegate? {
         get { return objc_getAssociatedObject(self, &AssociatedKeys.flowDelegate) as? SkeletonFlowDelegate }
         set { objc_setAssociatedObject(self, &AssociatedKeys.flowDelegate, newValue, AssociationPolicy.retain.objc) }
     }
@@ -46,8 +46,8 @@ extension UIView {
         set { objc_setAssociatedObject(self, &AssociatedKeys.skeletonLayer, newValue, AssociationPolicy.retain.objc) }
     }
     
-    var status: Status! {
-        get { return objc_getAssociatedObject(self, &AssociatedKeys.status) as? Status ?? .off }
+    var skeletonStatus: SkeletonStatus! {
+        get { return objc_getAssociatedObject(self, &AssociatedKeys.status) as? SkeletonStatus ?? .off }
         set { objc_setAssociatedObject(self, &AssociatedKeys.status, newValue, AssociationPolicy.retain.objc) }
     }
     
