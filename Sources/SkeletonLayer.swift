@@ -49,7 +49,7 @@ public enum SkeletonType {
     }
 }
 
-struct SkeletonLayer {
+public struct SkeletonLayer {
     
     private var maskLayer: CALayer
     private weak var holder: UIView?
@@ -66,6 +66,7 @@ struct SkeletonLayer {
         self.holder = holder
         self.maskLayer = type.layer
         self.maskLayer.anchorPoint = .zero
+        self.maskLayer.cornerRadius = holder.skeletonCornerRadius
         self.maskLayer.bounds = holder.skltn_maxBoundsEstimated
         addMultilinesIfNeeded()
         self.maskLayer.skltn_tint(withColors: colors)

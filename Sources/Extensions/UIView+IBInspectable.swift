@@ -14,10 +14,13 @@ private enum AssociatedKeys {
     static var skeletonLayer = "layer"
     static var flowDelegate = "flowDelegate"
     static var isSkeletonAnimated = "isSkeletonAnimated"
+    static var skeletonRadius = "skeletonRadius"
 }
 
 extension UIView {
     
+    static open var defaultSkeletonCornerRadius: CGFloat = 0
+
     @IBInspectable
     open var isSkeletonable: Bool {
         get { return skeletonable }
@@ -26,6 +29,11 @@ extension UIView {
     
     public var isSkeletonActive: Bool {
         return skeletonStatus == .on || (subviewsSkeletonables.first(where: { $0.isSkeletonActive }) != nil)
+    }
+    
+    public var skeletonCornerRadius: CGFloat {
+        get { return skeletonRadius ?? UIView.defaultSkeletonCornerRadius }
+        set { skeletonRadius = newValue }
     }
 }
 
@@ -59,6 +67,11 @@ extension UIView {
     fileprivate var skeletonable: Bool! {
         get { return objc_getAssociatedObject(self, &AssociatedKeys.skeletonable) as? Bool ?? false }
         set { objc_setAssociatedObject(self, &AssociatedKeys.skeletonable, newValue, AssociationPolicy.retain.objc) }
+    }
+    
+    var skeletonRadius: CGFloat? {
+        get { return objc_getAssociatedObject(self, &AssociatedKeys.skeletonRadius) as? CGFloat }
+        set { objc_setAssociatedObject(self, &AssociatedKeys.skeletonRadius, newValue, AssociationPolicy.retain.objc) }
     }
 }
 
