@@ -16,15 +16,15 @@ private enum AssociatedKeys {
     static var isSkeletonAnimated = "isSkeletonAnimated"
 }
 
-public extension UIView {
+extension UIView {
     
     @IBInspectable
-    var isSkeletonable: Bool {
+    open var isSkeletonable: Bool {
         get { return skeletonable }
         set { skeletonable = newValue }
     }
     
-    var isSkeletonActive: Bool {
+    public var isSkeletonActive: Bool {
         return skeletonStatus == .on || (subviewsSkeletonables.first(where: { $0.isSkeletonActive }) != nil)
     }
 }
