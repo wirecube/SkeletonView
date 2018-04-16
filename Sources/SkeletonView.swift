@@ -26,9 +26,9 @@ public extension UIView {
         showSkeleton(withType: .gradient, usingColors: gradient.colors, animated: true, animation: animation)
     }
     
-    func hideSkeleton(reloadDataAfter reload: Bool = true) {
+    func hideSkeleton(reloadDataAfter reload: Bool = true, animated: Bool = false) {
         skeletonFlowDelegate?.willBeginHidingSkeletons(withRootView: self)
-        recursiveHideSkeleton(reloadDataAfter: reload)
+        recursiveHideSkeleton(reloadDataAfter: reload, animated: animated)
     }
     
     func startSkeletonAnimation(_ anim: SkeletonLayerAnimation? = nil) {
@@ -70,14 +70,14 @@ extension UIView {
         }
     }
     
-    fileprivate func recursiveHideSkeleton(reloadDataAfter reload: Bool = true) {
+    fileprivate func recursiveHideSkeleton(reloadDataAfter reload: Bool = true, animated: Bool = true) {
         removeDummyDataSourceIfNeeded()
         isUserInteractionEnabled = true
         recursiveSearch(inArray: subviewsSkeletonables,
                         leafBlock: {
-                            removeSkeletonLayer()
+                            removeSkeletonLayer(animated: animated)
                         }, recursiveBlock: {
-                            $0.recursiveHideSkeleton(reloadDataAfter: reload)
+                            $0.recursiveHideSkeleton(reloadDataAfter: reload, animated: animated)
                         })
     }
     
@@ -141,11 +141,10 @@ extension UIView {
         skeletonStatus = .on
     }
     
-    func removeSkeletonLayer() {
+    func removeSkeletonLayer(animated: Bool = false) {
         guard isSkeletonActive,
             let layer = skeletonLayer else { return }
-        layer.stopAnimation()
-        layer.removeLayer()
+        layer.removeLayer(animated: animated)
         skeletonLayer = nil
         skeletonStatus = .off
     }

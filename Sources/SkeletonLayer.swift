@@ -71,8 +71,17 @@ struct SkeletonLayer {
         self.maskLayer.skltn_tint(withColors: colors)
     }
     
-    func removeLayer() {
-        maskLayer.removeFromSuperlayer()
+    func removeLayer(animated: Bool = false) {
+        if animated == false {
+            stopAnimation()
+            maskLayer.removeFromSuperlayer()
+        } else {
+            let fadeAnimation = CABasicAnimation(keyPath: "opacity")
+            fadeAnimation.toValue = 0
+            fadeAnimation.duration = 0.3
+            fadeAnimation.delegate = SkeletonLayerAnimationDelegate(layer: self)
+            maskLayer.add(fadeAnimation, forKey: "fadeOut")
+        }
     }
     
     func addMultilinesIfNeeded() {
@@ -90,5 +99,17 @@ extension SkeletonLayer {
     
     func stopAnimation() {
         contentLayer.skltn_stopAnimation(forKey: "skeletonAnimation")
+    }
+}
+
+class SkeletonLayerAnimationDelegate: NSObject, CAAnimationDelegate {
+    
+    var layer: SkeletonLayer
+    init(layer: SkeletonLayer) {
+        self.layer = layer
+    }
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        self.layer.removeLayer(animated: false)
     }
 }
