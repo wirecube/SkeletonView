@@ -10,11 +10,13 @@ import UIKit
 
 private enum AssociatedKeys {
     static var lastLineFillingPercent = "lastLineFillingPercent"
+    static var forceShortenLastLine = "forceShortenLastLine"
 }
 
 protocol ContainsMultilineText {
     var numLines: Int { get }
     var lastLineFillingPercent: Int { get }
+    var forceShortenLastLine: Bool { get }
 }
 
 extension ContainsMultilineText {
@@ -28,6 +30,12 @@ public extension UILabel {
         get { return lastLineFillingPercent }
         set { lastLineFillingPercent = min(newValue, 100) }
     }
+    
+    @IBInspectable
+    var forceShortenLastLine: Bool {
+        get { return forceShorten }
+        set { forceShorten = newValue }
+    }
 }
 
 public extension UITextView {
@@ -36,6 +44,12 @@ public extension UITextView {
     var lastLineFillPercent: Int {
         get { return lastLineFillingPercent }
         set { lastLineFillingPercent = min(newValue, 100) }
+    }
+
+    @IBInspectable
+    var forceShortenLastLine: Bool {
+        get { return forceShorten }
+        set { forceShorten = newValue }
     }
 }
 
@@ -48,11 +62,23 @@ extension UILabel: ContainsMultilineText {
         get { return objc_getAssociatedObject(self, &AssociatedKeys.lastLineFillingPercent) as? Int ?? SkeletonDefaultConfig.multilineLastLineFillPercent }
         set { objc_setAssociatedObject(self, &AssociatedKeys.lastLineFillingPercent, newValue, AssociationPolicy.retain.objc) }
     }
+    
+    var forceShorten: Bool {
+        get { return objc_getAssociatedObject(self, &AssociatedKeys.forceShortenLastLine) as? Bool ?? false }
+        set { objc_setAssociatedObject(self, &AssociatedKeys.forceShortenLastLine, newValue, AssociationPolicy.retain.objc) }
+    }
+
 }
+
 extension UITextView: ContainsMultilineText {
     
     var lastLineFillingPercent: Int {
         get { return objc_getAssociatedObject(self, &AssociatedKeys.lastLineFillingPercent) as? Int ?? SkeletonDefaultConfig.multilineLastLineFillPercent }
         set { objc_setAssociatedObject(self, &AssociatedKeys.lastLineFillingPercent, newValue, AssociationPolicy.retain.objc) }
+    }
+    
+    var forceShorten: Bool {
+        get { return objc_getAssociatedObject(self, &AssociatedKeys.forceShortenLastLine) as? Bool ?? false }
+        set { objc_setAssociatedObject(self, &AssociatedKeys.forceShortenLastLine, newValue, AssociationPolicy.retain.objc) }
     }
 }

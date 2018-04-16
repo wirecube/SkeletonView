@@ -36,12 +36,12 @@ extension CALayer {
         return sublayers?.filter { $0.name == CALayer.skeletonSubLayersName } ?? [CALayer]()
     }
     
-    func skltn_addMultilinesLayers(lines: Int, type: SkeletonType, lastLineFillPercent: Int, cornerRadius: CGFloat) {
+    func skltn_addMultilinesLayers(lines: Int, type: SkeletonType, lastLineFillPercent: Int, cornerRadius: CGFloat, forceShortenLines: Bool = false) {
         let numberOfSublayers = calculateNumLines(maxLines: lines)
         for index in 0..<numberOfSublayers {
             var width = bounds.width
             
-            if index == numberOfSublayers-1 && numberOfSublayers != 1 {
+            if index == numberOfSublayers-1 && (numberOfSublayers != 1 || forceShortenLines) {
                 width = width * CGFloat(lastLineFillPercent)/100;
             }
             
